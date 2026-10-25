@@ -1,0 +1,83 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:orientation="vertical" android:padding="18dp"
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <TextView android:text="毫秒定时点击器" android:textSize="27sp" android:textStyle="bold"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+        <TextView android:id="@+id/serviceStatus" android:text="无障碍服务：未开启"
+            android:layout_marginTop="10dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/accessibilityButton" android:text="打开无障碍设置"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:text="时间基准" android:textStyle="bold" android:textSize="18sp"
+            android:layout_marginTop="12dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <RadioGroup android:id="@+id/timeSourceGroup" android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+            <RadioButton android:id="@+id/deviceRadio" android:text="系统时间" android:checked="true"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <RadioButton android:id="@+id/networkRadio" android:text="网络世界时间"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        </RadioGroup>
+        <TextView android:id="@+id/networkStatus" android:text="网络校时：未校准"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:text="当前时间（毫秒）" android:textStyle="bold" android:textSize="18sp"
+            android:layout_marginTop="12dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/currentTimeText" android:text="--:--:--.---"
+            android:textSize="25sp" android:fontFamily="monospace"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/clockOffsetText" android:text="时间偏差：0 ms"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:text="点击位置" android:textStyle="bold" android:textSize="18sp"
+            android:layout_marginTop="12dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <EditText android:id="@+id/xInput" android:hint="X" android:inputType="numberDecimal"
+                android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content"/>
+            <EditText android:id="@+id/yInput" android:hint="Y" android:inputType="numberDecimal"
+                android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <Button android:id="@+id/pickButton" android:text="屏幕取点（当前版使用坐标输入）"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/coordinateText" android:text="当前点击点：未设置"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:text="目标点击时间（HH:mm:ss.SSS）" android:textStyle="bold" android:textSize="18sp"
+            android:layout_marginTop="12dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <EditText android:id="@+id/timeInput" android:hint="09:30:15.123"
+            android:inputType="time" android:fontFamily="monospace"
+            android:textSize="21sp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:text="提前 / 延迟（毫秒）" android:textStyle="bold" android:textSize="18sp"
+            android:layout_marginTop="10dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <RadioButton android:id="@+id/earlyRadio" android:text="提前" android:checked="true"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <RadioButton android:id="@+id/lateRadio" android:text="延迟"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <EditText android:id="@+id/offsetInput" android:text="0" android:hint="ms"
+                android:inputType="numberDecimal" android:layout_weight="1"
+                android:layout_width="0dp" android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <TextView android:text="点击持续时间：100 ms（固定）"
+            android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:text="距离目标" android:textStyle="bold" android:textSize="18sp"
+            android:layout_marginTop="12dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/countdownText" android:text="未启动"
+            android:textSize="27sp" android:fontFamily="monospace"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <Button android:id="@+id/startButton" android:text="开始等待"
+            android:layout_marginTop="14dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/stopButton" android:text="停止"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/resultText" android:text="状态：未启动"
+            android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </LinearLayout>
+</ScrollView>

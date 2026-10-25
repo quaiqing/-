@@ -1,0 +1,5 @@
+
+<resources>
+    <string name="app_name">毫秒定时点击器</string>
+    <string name="accessibility_description">按指定的屏幕坐标和毫秒时间执行点击。</string>
+</resources>
