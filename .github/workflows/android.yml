@@ -1,44 +1,44 @@
 name: Build Android APK
 
 on:
-  workflow_dispatch:
-  push:
-    branches: [main, master]
+workflow_dispatch:
+push:
+branches: [main, master]
 
 permissions:
-  contents: read
+contents: read
 
 jobs:
-  build:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v7
+build:
+runs-on: ubuntu-24.04
+steps:
+- name: Checkout source
+uses: actions/checkout@v7
 
-      - name: Set up Java
-        uses: actions/setup-java@v6
-        with:
-          distribution: temurin
-          java-version: '17'
+  - name: Set up Java
+    uses: actions/setup-java@v6
+    with:
+      distribution: temurin
+      java-version: '17'
 
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v6
-        with:
-          gradle-version: '8.13'
+  - name: Set up Gradle
+    uses: gradle/actions/setup-gradle@v6
+    with:
+      gradle-version: '8.13'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v4
+  - name: Set up Android SDK
+    uses: android-actions/setup-android@v4
 
-      - name: Install Android SDK packages
-        run: sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+  - name: Install Android SDK packages
+    run: sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
-      - name: Build debug APK
-        run: gradle --no-daemon assembleDebug
+  - name: Build debug APK
+    run: gradle --no-daemon assembleDebug
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v7
-        with:
-          name: CoordLine-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
-          retention-days: 14
+  - name: Upload APK
+    uses: actions/upload-artifact@v7
+    with:
+      name: CoordLine-debug-apk
+      path: app/build/outputs/apk/debug/app-debug.apk
+      if-no-files-found: error
+      retention-days: 14
