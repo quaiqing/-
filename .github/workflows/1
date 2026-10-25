@@ -1,0 +1,21 @@
+      - name: Fix XML declaration
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path("app/src/main/res/layout/activity_main.xml")
+          content = p.read_text(encoding="utf-8-sig")
+          content = re.sub(
+              r'<\?xml\b.*?\?>',
+              '',
+              content,
+              flags=re.DOTALL
+          ).lstrip()
+          p.write_text(content, encoding="utf-8")
+          print("XML declaration cleanup completed.")
+          print("\n".join(content.splitlines()[:5]))
+          PY
+
+      - name: Build debug APK
+        run: gradle --no-daemon assembleDebug
