@@ -19,7 +19,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v6
         with:
-          distribution: gradle-8.13-bin.zip
+          distribution: github
           java-version: '17'
 
       - name: Set up Gradle
