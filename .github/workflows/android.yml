@@ -4,15 +4,13 @@ on:
   push:
     branches: ["main", "master"]
     paths-ignore:
-      - "**/*.md"
-      - ".gitignore"
-      - "LICENSE"
+      - "**.md"
+      - "docs/**"
   pull_request:
     branches: ["main", "master"]
     paths-ignore:
-      - "**/*.md"
-      - ".gitignore"
-      - "LICENSE"
+      - "**.md"
+      - "docs/**"
   workflow_dispatch:
 
 permissions:
@@ -38,17 +36,36 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          packages: "platforms;android-36 build-tools;36.0.0"
-
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
           gradle-version: "8.14.6"
           cache-cleanup: on-success
-          validate-wrappers: false
+
+      - name: Verify source file headers
+        shell: bash
+        run: |
+          set -euo pipefail
+          bad=0
+          while IFS= read -r -d '' f; do
+            case "$f" in
+              *.xml)
+                head="$(od -An -tx1 -N3 "$f" | tr -d ' \n')"
+                if [ "$head" != "3c3f78" ]; then
+                  echo "::error file=$f::XML must start with <?xml, got $head"
+                  bad=1
+                fi
+                ;;
+              *.kt|*.kts|*.properties)
+                first="$(od -An -tx1 -N1 "$f" | tr -d ' \n')"
+                if [ "$first" = "0a" ] || [ "$first" = "0d" ]; then
+                  echo "::error file=$f::file starts with a newline"
+                  bad=1
+                fi
+                ;;
+            esac
+          done < <(find . -type f \( -name '*.xml' -o -name '*.kt' -o -name '*.kts' -o -name '*.properties' \) -not -path './.gradle/*' -not -path './build/*' -not -path './app/build/*' -print0)
+          exit "$bad"
 
       - name: Build debug APK
         run: gradle --no-daemon --console=plain --stacktrace :app:assembleDebug
